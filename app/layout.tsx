@@ -25,6 +25,8 @@ export const metadata: Metadata = {
   },
 };
 
+const test = [];
+
 export default function RootLayout({
   children,
 }: {
