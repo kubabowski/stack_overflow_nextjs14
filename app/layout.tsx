@@ -4,7 +4,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import type { Metadata } from "next";
 
 import "./globals.css";
-import { ThemeProvider } from "@/context/ThemeProvider";
+import { ThemeProvider } from "../context/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,7 +20,7 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: "DevFlow",
-  description: "Stack Overflow project folearning purposes",
+  description: "Stack Overflow project for learning purposes",
   icons: {
     icon: "/assets/images/site-logo.svg",
   },
