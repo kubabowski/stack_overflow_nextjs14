@@ -39,7 +39,7 @@ const NavBar = () => {
             }}
           />
         </SignedIn>
-        <MobileNav></MobileNav>
+        <MobileNav />
       </div>
     </nav>
   );
