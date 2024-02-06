@@ -81,13 +81,13 @@ const LeftSidebar = () => {
           </Link>
         </div>
       </SignedOut>
-      <SignedIn>
+      {/* <SignedIn>
         <Link href="/">
           <Button className="small-medium light-border-2 btn-tertiary text-dark400_light900 min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
             Log Out
           </Button>
         </Link>
-      </SignedIn>
+      </SignedIn> */}
     </section>
   );
 };
