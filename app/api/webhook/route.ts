@@ -53,7 +53,7 @@ export async function POST(req: Request) {
     });
   }
 
-  // Get the ID and type
+  // Get the ID and typ
   const eventType = evt.type;
 
   if (eventType === "user.created") {
