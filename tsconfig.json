@@ -6,6 +6,7 @@
       "@od/shadcn-ui/*": ["libs/shadcn-ui/src/*"],
       "@/components/*": ["components/*"],
       "@/lib/*": ["lib/*"],
+      "@/database/*": ["database/*"],
       "@/types/*": ["types/*"],
       "@/context/*": ["context/*"],
       "@/constants/*": ["constants/*"]

@@ -8,7 +8,7 @@ export interface ITag extends Document {
   createdAt: Date;
 }
 
-const TagSchema = new Schema<ITag>({
+const TagSchema = new Schema({
   name: { type: String, required: true, unique: true },
   description: { type: String, required: true },
   questions: [
