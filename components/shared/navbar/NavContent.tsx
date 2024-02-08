@@ -2,15 +2,7 @@
 import React from "react";
 import Image from "next/image";
 
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { SheetClose } from "@/components/ui/sheet";
 
 import { usePathname } from "next/navigation";
 import { sidebarLinks } from "@/constants/index";

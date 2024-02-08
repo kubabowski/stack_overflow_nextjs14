@@ -1,9 +1,8 @@
 "use client";
 
 import React from "react";
-import NavContent from "./navbar/NavContent";
-import { Sheet, SheetClose, SheetContent } from "@/components/ui/sheet";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+// import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";

@@ -6,7 +6,6 @@ import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
 import { getQuestions } from "@/lib/actions/question.action";
-import { randomInt } from "crypto";
 import Link from "next/link";
 // import { useEffect } from "react";
 
