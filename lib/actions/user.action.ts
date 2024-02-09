@@ -28,11 +28,10 @@ export async function updateUser(params: UpdateUserParams) {
     connectToDatabase();
 
     const { clerkId, updateData, path } = params;
-
+    console.log(`user data changed: ${updateData}`);
     await User.findOneAndUpdate({ clerkId }, updateData, {
       new: true,
     });
-    console.log(`user data changed: ${updateData}`);
 
     revalidatePath(path);
   } catch (error) {
