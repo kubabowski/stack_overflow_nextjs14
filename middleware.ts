@@ -5,7 +5,7 @@ export default authMiddleware({
     "/",
     "/api/webhook",
     "/question/id",
-
+    "/collection",
     "/tags",
     "/tags/:id",
     "profile/:id",
