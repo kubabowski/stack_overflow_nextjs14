@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
 import { getQuestions } from "@/lib/actions/question.action";
 import Link from "next/link";
-// import { useEffect } from "react";
 
 export default async function Home() {
   //
@@ -36,7 +35,7 @@ export default async function Home() {
         />
         <Filter
           filters={HomePageFilters}
-          otherClasses="min-mh-[56px] sm:min-w-[170px]"
+          otherClasses="min-h-[56px] sm:min-w-[170px]"
           containerClasses="hidden max-md:flex"
         />
       </div>
