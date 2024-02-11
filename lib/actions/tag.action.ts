@@ -30,7 +30,7 @@ export async function getAllTags(params: GetAllTagsParams) {
   try {
     connectToDatabase();
 
-    const tags = await Tag.find({}).sort({ createdAt: -1 });
+    const tags = await Tag.find({});
     return { tags };
   } catch (error) {
     console.error(error);

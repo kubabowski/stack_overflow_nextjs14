@@ -1,5 +1,6 @@
 import TagCard from "@/components/cards/TagCard";
 import Filter from "@/components/shared/Filter";
+import NoResult from "@/components/shared/NoResult";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { TagFilters } from "@/constants/filters";
 import { getAllTags } from "@/lib/actions/tag.action";
@@ -7,14 +8,13 @@ import Link from "next/link";
 
 const Page = async () => {
   const result = await getAllTags({});
-  console.log(result);
   return (
     <>
-      <h1 className="h1-bold text-dark100_light900">Tags</h1>
+      <h1 className="h1-bold text-dark100_light900">All Tags</h1>
 
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
         <LocalSearchbar
-          route="/community"
+          route="/tags"
           iconPosition="left"
           imgSrc="search.svg"
           placeholder="Search by tag name"
@@ -32,13 +32,18 @@ const Page = async () => {
           result.tags.map((tag) => <TagCard tag={tag} key={tag._id} />)
         ) : (
           <div className="paragraph-regular text-dark200_light800 mx-auto max-w-4xl text-center">
-            <p>No tags yet</p>
-            <Link
+            <NoResult
+              title="No tags yet"
+              description="it looks like, there's no tags found"
+              link="/ask-question"
+              linkTitle="Ask a question"
+            />
+            {/* <Link
               href="/ask-question"
               className="mt-1 font-bold text-accent-blue"
             >
               Ask a question
-            </Link>
+            </Link> */}
           </div>
         )}
       </section>
