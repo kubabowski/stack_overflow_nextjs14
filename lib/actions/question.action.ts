@@ -24,6 +24,7 @@ export async function getQuestions(params: GetQuestionsParams) {
     //
   } catch (error) {
     console.log(error);
+    throw error;
   }
 }
 
@@ -31,12 +32,25 @@ export async function getQuestionById(params: GetQuestionByIdParams) {
   try {
     connectToDatabase();
 
-    const question = await Question.find(params);
+    const { questionId } = params;
 
-    return { question };
+    const question = await Question.findById(questionId)
+      .populate({
+        path: "tags",
+        model: Tag,
+        select: "_id name",
+      })
+      .populate({
+        path: "author",
+        model: User,
+        select: "_id clerkId name picture",
+      });
+
+    return question;
     //
   } catch (error) {
     console.log(error);
+    throw error;
   }
 }
 
@@ -68,5 +82,8 @@ export async function createQuestion(params: CreateQuestionParams) {
     });
 
     revalidatePath(path);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }
