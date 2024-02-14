@@ -2,6 +2,14 @@ const { hostname } = require("os");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverActions: true,
+    mdxRs: true,
+    serverComponentsExternalPackages: ["mongoose"],
+  },
+  compiler: {
+    reactRemoveProperties: true,
+  },
   images: {
     remotePatterns: [
       {

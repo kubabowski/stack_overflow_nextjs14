@@ -1,3 +1,5 @@
+"use server";
+
 import { Schema, models, model, Document } from "mongoose";
 
 export interface IAnswer extends Document {
@@ -10,39 +12,15 @@ export interface IAnswer extends Document {
 }
 
 const AnswerSchema = new Schema({
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
-
-  question: {
-    type: Schema.Types.ObjectId,
-    ref: "Question",
-  },
-
-  content: {
-    type: String,
-    default: "",
-  },
-  upvotes: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
-  ],
-  downvotes: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
-  ],
-
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  author: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  question: { type: Schema.Types.ObjectId, ref: "Question", required: true },
+  content: { type: String, required: true },
+  upvotes: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  downvotes: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  createdAt: { type: Date, default: Date.now },
 });
 
+// @ts-ignore
 const Answer = models.Answer || model("Answer", AnswerSchema);
 
 export default Answer;
