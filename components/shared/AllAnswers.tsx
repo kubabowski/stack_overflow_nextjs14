@@ -53,6 +53,7 @@ const AllAnswers = async ({
                       <span className="mx-3 max-sm:hidden"> - </span>
                       answered {getTimestamp(answer.createdAt)}
                     </p>
+                    <p></p>
                   </div>
                 </Link>
               </div>

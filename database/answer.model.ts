@@ -20,7 +20,6 @@ const AnswerSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-// @ts-ignore
 const Answer = models.Answer || model("Answer", AnswerSchema);
 
 export default Answer;
