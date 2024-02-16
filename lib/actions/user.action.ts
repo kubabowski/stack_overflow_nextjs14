@@ -6,6 +6,7 @@ import {
   CreateUserParams,
   DeleteUserParams,
   GetAllUsersParams,
+  ToggleSaveQuestionParams,
   UpdateUserParams,
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
@@ -95,7 +96,25 @@ export async function getAllUsers(params: GetAllUsersParams) {
 
     return { users };
   } catch (error) {
-    console.error("Error in getAllUsers:", error);
+    console.error("Error in getAllUsers: ", error);
+    throw error;
+  }
+}
+
+export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
+  try {
+    connectToDatabase();
+
+    const { userId, questionId, path } = params;
+
+    await User.findOneAndUpdate({
+      $setOnInsert: { clerkId: userId },
+      $push: { saved: questionId },
+    });
+
+    revalidatePath(path);
+  } catch (error) {
+    console.error("Error in saveQuestion: ", error);
     throw error;
   }
 }

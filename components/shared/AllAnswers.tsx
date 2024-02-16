@@ -5,6 +5,8 @@ import { getAnswers } from "@/lib/actions/answer.action";
 import Link from "next/link";
 import Image from "next/image";
 import { getTimestamp } from "@/lib/utils";
+import ParseHTML from "./ParseHTML";
+import Votes from "./Votes";
 
 interface Props {
   questionId: string;
@@ -48,16 +50,30 @@ const AllAnswers = async ({
                     className="rounded-full object-cover max-sm:mt-0.5"
                   />
                   <div className="flex flex-col sm:flex-row sm:items-center">
-                    <p>{answer.author.name + " "}</p>
-                    <p>
-                      <span className="mx-3 max-sm:hidden"> - </span>
+                    <p className="body-semibold text-dark300_light700">
+                      {answer.author.name}
+                    </p>
+                    <p className="small-regular text-dark400_light500 line-clamp-1">
+                      <span className="mx-2 max-sm:hidden"> - </span>
                       answered {getTimestamp(answer.createdAt)}
                     </p>
-                    <p></p>
                   </div>
                 </Link>
+
+                <div className="flex justify-end">
+                  <Votes
+                    type="Answer"
+                    itemId={JSON.stringify(answer._id)}
+                    userId={JSON.stringify(userId)}
+                    upvotes={answer.upvotes.length}
+                    hasUpvoted={answer.upvotes.includes(userId)}
+                    downvotes={answer.downvotes.length}
+                    hasDownvoted={answer.downvotes.includes(userId)}
+                  />
+                </div>
               </div>
             </div>
+            <ParseHTML data={answer.content} />
           </article>
         ))}
       </div>
