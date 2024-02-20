@@ -182,6 +182,8 @@ export async function getSavedQuestions(params: GetSavedQuestionsParams) {
 
     const { saved } = user;
 
+    console.log({ saved });
+
     return { questions: saved };
   } catch (error) {
     console.error(error);
