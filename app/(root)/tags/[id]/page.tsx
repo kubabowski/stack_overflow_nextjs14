@@ -13,16 +13,18 @@ const Page = async ({ params, searchParams }: URLProps) => {
     searchQuery: searchParams.q,
   });
 
+  console.log(result);
+
   return (
     <>
-      <h1 className="h1-bold text-dark100_light900">Saved Questions</h1>
+      <h1 className="h1-bold text-dark100_light900">{result.tagTitle}</h1>
 
       <div className="mt-11 w-full">
         <LocalSearchbar
           route="/"
           iconPosition="left"
           imgSrc="search.svg"
-          placeholder="Search for questions"
+          placeholder="Search tag questions"
           otherClasses="flex-1"
         />
       </div>
