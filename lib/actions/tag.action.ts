@@ -52,26 +52,23 @@ export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
 
     const tagFilter: FilterQuery<ITag> = { _id: tagId };
 
-    const tag = await Tag.findOne(tagFilter)
-      .populate({
-        _id: tagId,
-        path: "questions",
-        model: Question,
-        match: searchQuery
-          ? { title: { $regex: searchQuery, $options: "i" } }
-          : {},
-        options: {
-          sort: { createdAt: -1 },
-        },
-        populate: [
-          { path: "tags", model: Tag, select: "_id name" },
-          { path: "author", model: User, select: "_id clerkId name picture" },
-        ],
-      })
-      .exec();
+    const tag = await Tag.findOne(tagFilter).populate({
+      path: "questions",
+      model: Question,
+      match: searchQuery
+        ? { title: { $regex: searchQuery, $options: "i" } }
+        : {},
+      options: {
+        sort: { createdAt: -1 },
+      },
+      populate: [
+        { path: "tags", model: Tag, select: "_id name" },
+        { path: "author", model: User, select: "_id clerkId name picture" },
+      ],
+    });
 
     if (!tag) {
-      throw new Error("Tag not found");
+      return { tagTitle: "Tag not found", questions: [] };
     }
 
     const questions = tag.questions;

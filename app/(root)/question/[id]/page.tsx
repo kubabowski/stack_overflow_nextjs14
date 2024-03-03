@@ -24,9 +24,6 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
   const result = await getQuestionById({ questionId: params.id });
 
-  console.log("page");
-  console.log(JSON.stringify(mongoUser._id));
-
   return (
     <>
       <div className="flex-start w-full flex-col">
@@ -46,7 +43,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
               {result.author.name}
             </p>
           </Link>
-          console.log({mongoUser._id})
+
           <div className="flex justify-end">
             <Votes
               type="Question"
