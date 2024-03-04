@@ -24,7 +24,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
 
           <div className="mt-3">
             <h2>{userInfo.user.name}</h2>
-            <p>{userInfo.user.username}</p>
+            <p>@{userInfo.user.username}</p>
 
             <div className="mt-5 flex flex-wrap items-start justify-start gap-5">
               {userInfo.user.location && (
