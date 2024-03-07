@@ -234,8 +234,6 @@ export async function getUserQuestions(params: GetUserStatsParams) {
       .populate("tags", "_is name")
       .populate("author", "_id clerkId name picture");
 
-    console.log(userQuestions);
-    console.log(totalQuestions);
     return { totalQuestions, questions: userQuestions };
     //  if(questions)
   } catch (error) {
@@ -248,9 +246,15 @@ export async function getUserAnswers(params: GetUserStatsParams) {
   try {
     connectToDatabase();
 
-    const { userId } = params;
+    const { userId, page = 1, pageSize = 10 } = params;
 
-    const questions = await Question.findById;
+    const totalAnswers = await Answer.countDocuments({ author: userId });
+    const userAswers = await Answer.find({ author: userId })
+      .sort({ upvotes: -1 })
+      .populate("question", "_id title")
+      .populate("author", "_id clerkId name picture");
+
+    return { totalAnswers, answers: userAswers };
   } catch (error) {
     console.error(error);
     throw error;

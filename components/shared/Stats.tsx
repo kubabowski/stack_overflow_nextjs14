@@ -24,7 +24,7 @@ interface Props {
   totalQuestions: number;
   totalAnswers: number;
   badges: BadgeCounts;
-  reputation: number;
+  reputation?: number;
 }
 
 const Stats = ({ totalQuestions, totalAnswers, badges, reputation }: Props) => {
