@@ -16,7 +16,20 @@ import React from "react";
 const Page = async ({ params, searchParams }: URLProps) => {
   const { userId: clerkId } = auth();
   const userInfo = await getUserInfo({ userId: params.id });
-
+  console.log("heeej", { userInfo });
+  if (!userInfo) {
+    return (
+      <>
+        <div className="flex-center">
+          <div className="mt-3">
+            <h2 className="h2-bold text-dark100_light900">
+              You need to log in
+            </h2>
+          </div>
+        </div>
+      </>
+    );
+  }
   return (
     <>
       <div className="flex flex-col-reverse items-start justify-between sm:flex-row">

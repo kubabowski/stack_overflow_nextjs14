@@ -58,7 +58,8 @@ export async function deleteUser(params: DeleteUserParams) {
     const user = await User.findOneAndDelete({ clerkId });
 
     if (!user) {
-      throw new Error("User not found");
+      // throw new Error("User not found");
+      return false;
     }
 
     // const userQuestionIds = await Question.find({ author: user._id }).distinct(
@@ -118,7 +119,8 @@ export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
     const user = await User.findById(userId);
 
     if (!user) {
-      throw new Error("User not found");
+      // throw new Error("User not found");
+      return false;
     }
 
     const isQuestionSaved = user.saved.includes(questionId);
@@ -182,7 +184,8 @@ export async function getSavedQuestions(params: GetSavedQuestionsParams) {
       .exec();
 
     if (!user) {
-      throw new Error("User not found");
+      // throw new Error("User not found");
+      return false;
     }
 
     const { saved } = user;
@@ -205,7 +208,8 @@ export async function getUserInfo(params: GetUserByIdParams) {
     const user = await User.findOne({ clerkId: userId });
 
     if (!user) {
-      throw new Error("user not found");
+      // throw new Error("user not found");
+      return false;
     }
 
     const totalQuestions = await Question.countDocuments({ author: user._id });
