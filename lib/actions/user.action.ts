@@ -184,13 +184,11 @@ export async function getSavedQuestions(params: GetSavedQuestionsParams) {
       .exec();
 
     if (!user) {
-      // throw new Error("User not found");
-      return false;
+      throw new Error("User not found");
+      // return false;
     }
 
     const { saved } = user;
-
-    console.log({ saved });
 
     return { questions: saved };
   } catch (error) {
@@ -208,8 +206,8 @@ export async function getUserInfo(params: GetUserByIdParams) {
     const user = await User.findOne({ clerkId: userId });
 
     if (!user) {
-      // throw new Error("user not found");
-      return false;
+      throw new Error("user not found");
+      // return false;
     }
 
     const totalQuestions = await Question.countDocuments({ author: user._id });
