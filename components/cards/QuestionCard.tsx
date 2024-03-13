@@ -3,6 +3,7 @@ import React from "react";
 import RenderTag from "../shared/RenderTag";
 import Metric from "../shared/Metric";
 import { formatLargeNumber, getTimestamp } from "@/lib/utils";
+import { SignedIn } from "@clerk/nextjs/dist/types/components.server";
 
 interface QuestionProps {
   _id: string;
@@ -47,7 +48,9 @@ const QuestionCard = ({
             </h3>
           </Link>
         </div>
-        {/* Add edit if signed in */}
+        {/* <SignedIn>
+          
+        </SignedIn> */}
       </div>
 
       <div className="mt-3.5 flex flex-wrap gap-2">
@@ -62,7 +65,7 @@ const QuestionCard = ({
           alt="User"
           value={author.name}
           title={` - asked ${getTimestamp(createdAt)}`}
-          href={`/profile/${author._id}`}
+          href={`/profile/${author.clerkId}`}
           isAuthor
           textStyles="body-medium text-dark400_light700"
         />
