@@ -171,13 +171,13 @@ export async function deleteQuestion(params: DeleteQuestionParams) {
 
     const { questionId, path } = params;
 
-    const question = await Question.findById(questionId);
+    // const question = await Question.findById(questionId);
 
-    if (!question) {
-      throw new Error("Question not found");
-    }
+    // if (!question) {
+    //   throw new Error("Question not found");
+    // }
 
-    await question.deleteOne({ _id: questionId });
+    await Question.deleteOne({ _id: questionId });
     await Answer.deleteMany({ question: questionId });
     await Interaction.deleteMany({ question: questionId });
     await Tag.updateMany(
