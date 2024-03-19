@@ -17,8 +17,6 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
   let mongoUser;
 
-  console.log(auth());
-
   if (clerkId) {
     mongoUser = await getUserById({ userId: clerkId });
   }

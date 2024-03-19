@@ -26,14 +26,17 @@ const type: any = "create";
 
 interface Props {
   mongoUserId: string;
+  question?: string;
 }
 
-const Question = ({ mongoUserId }: Props) => {
+const Question = ({ mongoUserId, question }: Props) => {
   const mode = useTheme();
   const editorRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+
+  question && (question = JSON.parse(question));
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof QuestionsSchema>>({
@@ -122,6 +125,7 @@ const Question = ({ mongoUserId }: Props) => {
                   className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
                   placeholder=""
                   {...field}
+                  value={question ? question.title : ""}
                 />
               </FormControl>
               <FormDescription className="body-regular mt-2.5 text-light-500">
@@ -147,7 +151,8 @@ const Question = ({ mongoUserId }: Props) => {
                   onInit={(evt, editor) => (editorRef.current = editor)}
                   onBlur={field.onBlur}
                   onEditorChange={(content) => field.onChange(content)}
-                  initialValue=""
+                  initialValue={question ? question.content : ""}
+                  // initialValue=""
                   init={{
                     height: 350,
                     menubar: false,
@@ -211,6 +216,26 @@ const Question = ({ mongoUserId }: Props) => {
                           onClick={() => handleTagRemove(tag, field)}
                         >
                           {tag}
+                          <Image
+                            src="/assets/icons/close.svg"
+                            alt="Close icon"
+                            width={12}
+                            height={12}
+                            className="cursor-pointer object-contain invert-0 dark:invert"
+                          />
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
+                  {question && (
+                    <div className="flex-start mt-2.5 gap-2.5">
+                      {question.tags.map((tag: any) => (
+                        <Badge
+                          key={tag.name}
+                          className="subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 uppercase"
+                          onClick={() => handleTagRemove(tag, field)}
+                        >
+                          {tag.name}
                           <Image
                             src="/assets/icons/close.svg"
                             alt="Close icon"
