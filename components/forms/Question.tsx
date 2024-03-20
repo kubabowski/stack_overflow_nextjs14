@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { QuestionsSchema } from "@/lib/validations";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
-import { createQuestion } from "@/lib/actions/question.action";
+import { createQuestion, updateQuestion } from "@/lib/actions/question.action";
 import { useRouter, usePathname } from "next/navigation";
 import { useTheme } from "@/context/ThemeProvider";
 
@@ -68,7 +68,25 @@ const Question = ({ mongoUserId, question }: Props) => {
     } finally {
       setIsSubmitting(false);
     }
-    console.log(values);
+  }
+
+  async function onUpdate(values: z.infer<typeof QuestionsSchema>) {
+    setIsSubmitting(true);
+    try {
+      //
+      await updateQuestion({
+        questionId: question._id,
+        title: values.title,
+        content: values.explanation,
+        path: pathname,
+      });
+
+      // navigate to homepage
+      // router.push("/");
+    } catch (error) {
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const handleInputKeyDown = (
@@ -258,7 +276,8 @@ const Question = ({ mongoUserId, question }: Props) => {
           )}
         />
         <Button
-          type="submit"
+          type={question ? "button" : "submit"}
+          onClick={question ? onUpdate : undefined}
           className="primary-gradient w-full !text-light-900"
           disabled={isSubmitting}
         >

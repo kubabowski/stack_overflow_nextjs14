@@ -7,6 +7,7 @@ import { connectToDatabase } from "../mongoose";
 import {
   CreateQuestionParams,
   DeleteQuestionParams,
+  EditQuestionParams,
   GetQuestionByIdParams,
   GetQuestionsParams,
   GetSavedQuestionsParams,
@@ -187,6 +188,27 @@ export async function deleteQuestion(params: DeleteQuestionParams) {
 
     // Increment author's reputation
     revalidatePath(path);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function updateQuestion(params: EditQuestionParams) {
+  try {
+    connectToDatabase();
+
+    const { questionId, title, content, path } = params;
+
+    console.log("before update");
+    await Question.updateOne(
+      { _id: questionId, title, content },
+      { new: true }
+    );
+
+    // Increment author's reputation
+    revalidatePath(path);
+    console.log("after revalidate");
   } catch (error) {
     console.error(error);
     throw error;
