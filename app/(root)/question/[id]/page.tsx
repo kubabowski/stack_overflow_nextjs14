@@ -7,12 +7,13 @@ import Votes from "@/components/shared/Votes";
 import { getQuestionById } from "@/lib/actions/question.action";
 import { getUserById } from "@/lib/actions/user.action";
 import { formatLargeNumber, getTimestamp } from "@/lib/utils";
+import { ParamsProps } from "@/types/index";
 import { auth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const Page = async ({ params }: { params: { id: string } }) => {
+const Page = async ({ params }: ParamsProps) => {
   const { userId: clerkId } = auth();
 
   let mongoUser;

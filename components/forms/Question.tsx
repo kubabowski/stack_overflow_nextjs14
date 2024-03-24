@@ -22,21 +22,20 @@ import { createQuestion, updateQuestion } from "@/lib/actions/question.action";
 import { useRouter, usePathname } from "next/navigation";
 import { useTheme } from "@/context/ThemeProvider";
 
-const type: any = "create";
-
 interface Props {
   mongoUserId: string;
-  question?: string;
+  type?: string;
+  questionDetails?: string;
 }
 
-const Question = ({ mongoUserId, question }: Props) => {
+const Question = ({ mongoUserId, type, questionDetails }: Props) => {
   const mode = useTheme();
   const editorRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
-  question && (question = JSON.parse(question));
+  questionDetails && (questionDetails = JSON.parse(questionDetails));
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof QuestionsSchema>>({
@@ -75,7 +74,7 @@ const Question = ({ mongoUserId, question }: Props) => {
     try {
       //
       await updateQuestion({
-        questionId: question._id,
+        questionId: questionDetails._id,
         title: values.title,
         content: values.explanation,
         path: pathname,
@@ -143,7 +142,7 @@ const Question = ({ mongoUserId, question }: Props) => {
                   className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
                   placeholder=""
                   {...field}
-                  value={question ? question.title : ""}
+                  value={questionDetails ? questionDetails.title : ""}
                 />
               </FormControl>
               <FormDescription className="body-regular mt-2.5 text-light-500">
@@ -169,7 +168,7 @@ const Question = ({ mongoUserId, question }: Props) => {
                   onInit={(evt, editor) => (editorRef.current = editor)}
                   onBlur={field.onBlur}
                   onEditorChange={(content) => field.onChange(content)}
-                  initialValue={question ? question.content : ""}
+                  initialValue={questionDetails ? questionDetails.content : ""}
                   // initialValue=""
                   init={{
                     height: 350,
@@ -245,9 +244,9 @@ const Question = ({ mongoUserId, question }: Props) => {
                       ))}
                     </div>
                   )}
-                  {question && (
+                  {type === "edit" && (
                     <div className="flex-start mt-2.5 gap-2.5">
-                      {question.tags.map((tag: any) => (
+                      {questionDetails.tags.map((tag: any) => (
                         <Badge
                           key={tag.name}
                           className="subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 uppercase"
@@ -276,8 +275,8 @@ const Question = ({ mongoUserId, question }: Props) => {
           )}
         />
         <Button
-          type={question ? "button" : "submit"}
-          onClick={question ? onUpdate : undefined}
+          type={type === "edit" ? "button" : "submit"}
+          onClick={type === "edit" ? onUpdate : undefined}
           className="primary-gradient w-full !text-light-900"
           disabled={isSubmitting}
         >
